@@ -15,6 +15,7 @@ class CheckoutInformationPage:
         self.postal_code_error_message = page.get_by_text(
             "Error: Postal Code is required",
             exact=True)
+        self.error_message = page.locator('[data-test="error"]')
 
     def fill_information(self,
                          first_name,
@@ -27,3 +28,5 @@ class CheckoutInformationPage:
 
     def continue_checkout(self):
         self.continue_button.click()
+
+

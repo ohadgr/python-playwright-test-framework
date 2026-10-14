@@ -1,5 +1,6 @@
 import re
 
+import pytest
 from playwright.sync_api import expect
 
 from pages.checkout_information_page import CheckoutInformationPage
@@ -32,3 +33,23 @@ def test_backpack_checkout(logged_in_page):
     total = parse_price(checkout_overview_page.total_price.inner_text())
     assert item_price == item_total
     assert item_total + tax == total
+
+
+@pytest.mark.parametrize(
+    "first_name, last_name, zip_code, expected",
+    [
+        ("", "User", "90210", "Error: First Name is required"),
+        ("Test", "", "90210", "Error: Last Name is required"),
+        ("Test", "User", "", "Error: Postal Code is required"),
+    ]
+)
+def test_negative_validation(logged_in_page, first_name, last_name, zip_code, expected):
+    products_page = ProductsPage(logged_in_page)
+    cart_page = CartPage(logged_in_page)
+    checkout_information_page = CheckoutInformationPage(logged_in_page)
+    products_page.add_backpack_to_cart()
+    products_page.open_cart()
+    cart_page.click_on_checkout_button()
+    checkout_information_page.fill_information(first_name, last_name, zip_code)
+    checkout_information_page.continue_checkout()
+    expect(checkout_information_page.error_message).to_have_text(expected)
