@@ -47,4 +47,4 @@ def get_active_users_from_country(response, country):
     )
     return [user["name"] for user in sorted_users]
 
-print((get_active_users_from_country(response, "Israel")))
+print(get_active_users_from_country(response, "Israel"))

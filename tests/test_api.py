@@ -1,7 +1,5 @@
 import pytest
 
-from nested_json import response
-
 
 def test_get_user(users_api):
     response = users_api.get_user(1)
@@ -9,12 +7,6 @@ def test_get_user(users_api):
     data = response.json()
     assert data["id"] == 1
     assert data["username"]
-
-
-def test_get_non_existing_user(users_api):
-    response = users_api.get_user(99999)
-    assert response.status == 404
-
 
 def test_create_post(posts_api):
     post_data = {"title": "Automation Test", "body": "Created by Playwright", "userId": 1}

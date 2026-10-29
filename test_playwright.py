@@ -1,6 +1,3 @@
-import re
-from playwright.sync_api import expect
-from pages.login_page import LoginPage
 
 # def test_open_page(page):
 #     page.goto("https://playwright.dev")

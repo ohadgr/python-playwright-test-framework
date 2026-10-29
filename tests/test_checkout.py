@@ -3,10 +3,10 @@ import re
 import pytest
 from playwright.sync_api import expect
 
+from pages.cart_page import CartPage
 from pages.checkout_information_page import CheckoutInformationPage
 from pages.checkout_overview_page import CheckoutOverviewPage
 from pages.products_page import ProductsPage
-from pages.cart_page import CartPage
 from utils.price_utils import parse_price
 
 
